@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdGion | Master Your Syllabus</title>
+    <!-- Modern Rounded Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            --bg-color: #050505;
+            --text-white: #ffffff;
+            --text-gray: #a1a1aa;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glow-color: rgba(34, 197, 94, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            overflow: hidden; /* No scrolling */
+        }
+
+        /* --- Background Elements --- */
+        .bg-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .grid-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(34, 197, 94, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .radial-glow {
+            position: absolute;
+            top: 50%;
+            left: -10%;
+            transform: translateY(-50%);
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+            filter: blur(80px);
+        }
+
+        .particle {
+            position: absolute;
+            background: #22c55e;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -40px); }
+        }
+
+        /* --- Layout --- */
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            align-items: center;
+            max-width: 1250px;
+            margin: 0 auto;
+            height: 100vh;
+            padding: 0 40px;
+            gap: 60px;
+        }
+
+        /* --- Left Side --- */
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            background: rgba(34, 197, 94, 0.05);
+            color: #22c55e;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .brand-heading {
+            font-size: 110px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(34, 197, 94, 0.2));
+        }
+
+        .subheading {
+            font-size: 22px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: #e4e4e7;
+        }
+
+        .feature-item::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 2px;
+            margin-right: 12px;
+            box-shadow: 0 0 10px #22c55e;
+        }
+
+        /* --- Right Side (Card) --- */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 45px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-header {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        .pricing-highlight {
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(34, 197, 94, 0.3);
+            margin-bottom: 25px;
+        }
+
+        .highlight-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #22c55e;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .highlight-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .highlight-sub {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        /* --- Form Elements --- */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #22c55e;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .cta-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(22, 163, 74, 0.2);
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(22, 163, 74, 0.4);
+        }
+
+        .cta-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #52525b;
+            margin-top: 25px;
+            letter-spacing: 1px;
+        }
+
+        /* --- Success State --- */
+        #success-msg {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #success-msg h3 { color: #22c55e; margin-bottom: 10px; }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 1024px) {
+            body { overflow-y: auto; }
+            .hero-container {
+                grid-template-columns: 1fr;
+                height: auto;
+                padding: 80px 24px;
+                text-align: center;
+                gap: 50px;
+            }
+            .brand-heading { font-size: 72px; }
+            .subheading { margin: 0 auto 30px; }
+            .features-list { justify-content: center; }
+            .radial-glow { left: -50%; width: 150vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-wrapper">
+        <div class="grid-dots"></div>
+        <div class="radial-glow"></div>
+        <div class="particle" style="width:4px; height:4px; top:20%; left:30%;"></div>
+        <div class="particle" style="width:2px; height:2px; top:60%; left:80%; animation-delay:2s;"></div>
+        <div class="particle" style="width:3px; height:3px; top:80%; left:10%; animation-delay:4s;"></div>
+    </div>
+
+    <main class="hero-container">
+        <!-- Left Side -->
+        <div class="hero-left">
+            <div class="badge">WAITLIST OPEN – FREE ACCESS</div>
+            <h1 class="brand-heading">EdGion</h1>
+            <p class="subheading">Master your school syllabus with clarity, confidence, and better results.</p>
+            
+            <div class="features-list">
+                <div class="feature-item">Complete School Curriculum</div>
+                <div class="feature-item">Concept-Based Learning</div>
+                <div class="feature-item">Chapter-wise Practice & Notes</div>
+                <div class="feature-item">Exam-Focused Preparation</div>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="hero-right">
+            <div class="glass-card">
+                <div id="form-container">
+                    <h2 class="card-header">JOIN EARLY ACCESS</h2>
+                    
+                    <div class="pricing-highlight">
+                        <span class="highlight-label">LIMITED ACCESS</span>
+                        <span class="highlight-value">$10 FREE CREDITS</span>
+                        <p class="highlight-sub">No payment required. No card needed.</p>
+                    </div>
+
+                    <form id="waitlist-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="mobile" name="mobile" placeholder="Mobile Number" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="referral" name="referral" placeholder="Referral Code (optional)">
+                        </div>
+                        <button type="submit" class="cta-btn" id="submit-btn">CLAIM MY ACCESS</button>
+                    </form>
+                </div>
+
+                <div id="success-msg">
+                    <h3>Welcome to the inner circle!</h3>
+                    <p>Your $10 credits have been reserved. We'll reach out via email shortly.</p>
+                </div>
+
+                <p class="footer-note">Secure • Private • Student Focused</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwfi_aPRAUHZ0yCB6agmjBuvJYFqCnRn7b2GFawLbfYbKp1e4OQX_bWXNg6xC2jwexxDQ/exec'; // Replace this
+        const form = document.getElementById('waitlist-form');
+        const btn = document.getElementById('submit-btn');
+        const formContainer = document.getElementById('form-container');
+        const successMsg = document.getElementById('success-msg');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            // Basic Validation
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+            
+            if(!/^\S+@\S+\.\S+$/.test(email)) {
+                alert("Please enter a valid email.");
+                return;
+            }
+            if(mobile.length < 10) {
+                alert("Please enter a valid mobile number.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "RESERVING...";
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            data.timestamp = new Date().toLocaleString();
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                mode: 'no-cors', // Important for GAS
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                formContainer.style.display = 'none';
+                successMsg.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                btn.disabled = false;
+                btn.innerText = "CLAIM MY ACCESS";
+                alert("Something went wrong. Please try again.");
+            });
+        });
+    </script>
+</body>
+</html>
